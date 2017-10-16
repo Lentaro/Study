@@ -1,0 +1,142 @@
+//配置
+ssh-keygen -t rsa -C "1297146548@qq.com" //生成密钥
+ssh -T git@github.com  //验证密钥是否绑定成功
+
+git config --global user.name "xuanmiao-zero"//第一次使用设定使用者名称和Email
+git config --global user.email "1297146548@qq.com"
+git config --list查看 git config配置
+
+git config credential.helper 'cache --timeout=3600' //设置一个小时之后失效
+git config --global credential.helper store   //长期存储密码
+
+//常用命令
+git init  //创建本地版本库
+git add readme.txt //添加文件到暂存区
+git commit -m "wrote a readme file"  //提交暂存区文件到版本库并且添加备注
+
+git commit -a -m "end 2"//再次提交已经提交过的文件时，可以直接从工作区到版本区。
+
+git  push origin master //推送远程仓库
+
+git status  //查看当前暂存区的修改
+git diff readme.txt  // 比较当前文件（工作区）和暂存区文件不同
+
+git diff --cached //暂存区和版本区的区别
+
+git diff master //工作去和版本区的区别
+
+git add .  //将所有文件添加到暂存区
+git config --global core.autocrlf false //不显示将lf替换为ctrl的警告信息
+git log   //查看历史纪录
+git log --pretty=oneline //显示所有版本简略信息
+git reset --hard HEAD^  //回退到上一版本号
+git reset --hard 5bd3b6 //回退到版本号5bd3b6 
+git reflog //查看版本更改
+场景1：git checkout -- file //丢弃工作区的修改(将暂存区中的文件（没有则将版本库中的文件）替换工作区的文件)
+场景2：git reset HEAD file //丢弃暂存区文件  回到了场景1，按场景1操作。
+场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库
+
+场景4：如果有2个文件，一个提交到版本库了，另一个忘记提交，可以现将没提交的文件拉到暂存区，然后通过git commit -m "新的版本" --amend 最后暂存区中的文件和撤销回来的版本形成一个新的版本，撤销回来的版本就销毁了。
+
+git rm -- file //如果暂存区有则暂存区和工作区都删，如果暂存区没有则删除不了
+git rm -f -- file  //暂存区工作区都删
+git rm -rf  -- files //删除文件夹
+git rm --cached   //只删暂存区，不删工作区
+
+
+git checkout 版本号  文件名（需要恢复的文件）
+
+git reset --hard 版本号 //回退到某个版本
+
+ git reset --hard HEAD~n //上n个版本
+ 
+ git reset --hard HEAD^   //上一个版本
+ 
+ git reflog 查看操作过的版本历史
+ 
+ git remote -v //查看下载地址和上传地址
+ 
+ 创建远程仓库: git remote add 远程仓库名字  github的地址
+ 上传到远程仓库 git push 你起的远程仓库名字 master
+  
+ git fetch (将远程文件下载下来，不覆盖)
+ git pull(将远程文件下载下来，不覆盖)
+
+//协作开发流程
+1.给协作者开发权限
+进入项目-->settings-->collabrate-->添加协作者-->等待协作者确认
+2.协作者：
+确认协作-->clone项目-->参与项目开发-->提交上传
+3.遇到冲突
+git pull //覆盖本地代码
+git fetch //把远程仓库代码拉下来
+查看哪里有冲突
+git diff master origin/master //绿色为远程库的内容，红色为本地文件内容
+合并冲突(master --> 变为master[MERGEING])
+git merge origin/master
+人为修改代码，解决冲突，重新提交，push之后，push(master[MERGEING]就变成master)
+
+//给别人推送你的修改
+1.找到想要协作开发的项目fork
+2.把项目 git clone 到本地-->修改-->提交
+3.点击pull request-->new pull requests-->create pull requests
+4.等待回复
+5.收到别人的pull request后-->点击files changed（查看修改内容）-->Merge pull request（回复）。
+
+git branch 分支名 //新建分支
+git branch //查看分支
+git checkout 分支名 //切换分支
+git checkout -b 分支名  //新建并切换到新建分支
+git merge 分支名 //合并分支
+git branch -d //删除分支
+git branch -D //删除没有合并的分支
+
+git branch --no-merged //查看没有合并的分支
+git branch --merged //查看合并的分支
+
+
+ssh-keygen -t rsa -C "youremail@example.com" //生成key 文件位置当前用户目录下的.ssh文件中
+git remote add origin git@github.com:xuanmiao-zero/ElectiveManagement.git  //连接远程库
+git push -u origin master //将本地库上传到远程库并将本地master和远程master对应起来
+git clone git@github.com:xuanmiao-zero/learngit
+或者
+git clone git://github.com/xuanmiao-zero/learngit
+ //从远程库克隆到本地
+git branch  //列出所有分支。
+git checkout -b dev //创建并切换
+git branch dev  //创建
+git checkout master //切换
+git merge dev  //合并
+git branch -d dev //删除
+git branch -m dev dev1
+git log --graph --pretty=oneline --abbrev-commit //查看分支情况
+git merge --no-ff -m "merge with no-ff" dev //不使用fast forward模式合并
+git stash //保存当前状态
+git stash list //查看stash清单
+git stash apply //恢复但不删除stash
+git stash pop   //恢复并删除stash
+git stash apply stash@{0} //恢复指定stash
+git branch -D feature-vulcan //强行删除没有合并的分支
+git remote //查看远程库信息
+git remote -v //查看远程库的详细信息
+git checkout -b dev origin/dev //创建远程的dev分支到本地
+git push origin dev //将dev 推送到远程库
+git pull //把最新的提交抓下来
+git branch --set-upstream branch-name origin/branch-name //指定本地dev分支与远程origin/dev分支的链接关系
+git tag v1.0 //创建标签   默认标签是打在最新提交的commit上
+git tag v0.9 6224937 //对指定commit创建标签
+git tag  //查看所有标签
+git show <tagname>  //查看标签信息
+git tag -a v0.1 -m "version 0.1 released" 3618164 //创建带有说明的标签，用-a指定标签名，-m指定说明文字
+git tag -d v0.1 //删除标签
+git push origin <tagname> //推送某个标签
+git push origin --tags 一次推送全部尚未推送的本地标签
+删除远程标签:
+git tag -d v0.9 //首先先删除本地标签
+git push origin :refs/tags/v0.9 //然后，从远程删除
+git config --global color.ui true //git 显示颜色
+git add -f App.class //强制添加该文件
+git check-ignore -v ignorefiletest.txt //检查第几行命令忽略了该文件
+git config --global alias.st status //为命令起别名
+   git config --global alias.last 'log -1'
+   git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
