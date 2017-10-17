@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		
+	</body>
+	<script type="text/javascript">
+		function persona(name,sex,age){
+			this.name = name;
+			this.sex = sex;
+			this.age = age;
+		}
+		var a = new persona('新岛真','女',17);
+		Object.prototype.say = function(){
+			alert(this.sex);
+		}
+//		persona.prototype.say = function(){
+//			alert(this.name);
+//		}
+		Object.spy = function(){
+			alert(1);
+		}
+		persona.fo = function(){
+			alert(2);
+		}
+		a.say();
+		console.log(a);
+		console.log(persona.prototype.__proto__ === Object.prototype);
+		console.log(persona.prototype.constructor === persona);
+	</script>
+</html>
