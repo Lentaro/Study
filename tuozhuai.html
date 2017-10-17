@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 50px;
+				height: 50px;
+				background-color: red;
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div></div>
+	</body>
+	<script type="text/javascript">
+		function get(){
+			this.div = document.querySelector("div");
+		}
+		get.prototype.down = function(){
+			var _this = this;
+			this.div.onmousedown = function(ev){
+				var x = ev.clientX-this.offsetLeft;
+				var y = ev.clientY-this.offsetTop;
+				_this.move(x,y);
+			}
+		}
+		get.prototype.move = function(x,y){
+			document.onmousemove = function(ev){
+				this.style.left = ev.clientX - x;
+				this.style.top = ev.clientY - y;
+			}
+		}
+		get.
+	</script>
+</html>
