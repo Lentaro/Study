@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				margin: 0;
+			}
+			.signUp{
+				width: 400px;
+				height: 400px;
+				background-color: #6677ff;
+				border-radius: 50px;
+				position: absolute;
+				left: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				margin: auto;
+				padding: 30px 0 0 0;
+			}
+			.text{
+				width: 300px;
+				height: 30px;
+				font: 24px/30px "微软雅黑";
+				margin: 20px auto 20px;
+			}
+			input{
+				display: block;
+			}
+			form{
+				text-align: center;
+			}
+			strong{
+				font: 30px/50px "微软雅黑";
+				height: 50px;
+				display: block;
+				text-align: center;
+			}
+			#submit{
+				height: 50px;
+				font: 30px/50px "微软雅黑";margin: 30px auto;
+			}
+			.over{
+				display: none;
+				background-color: rgba(0,0,0,0.5);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="signUp">
+			<strong>登陆</strong>
+			<form action="" method="post">
+				<input type="text" name="" class="text" id="phone" value="" placeholder="手机号"/>
+				<input type="text" name="" class="text" id="email" value="" placeholder="邮箱号"/>
+				<input type="text" name="" class="text" id="qq" value="" placeholder="QQ号"/>
+				<input type="text" name="" class="text" id="day" value="" placeholder="出生日期 如19750523"/>
+				<input type="button" value="注册" id="submit" disabled="disabled"/>
+			</form>
+		</div>
+		<div class="over">
+			<div>注册完成</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		class Sign {
+			constructor(){
+				this.text = document.querySelectorAll(".text");
+				this.btn = document.querySelector("#submit");
+				this.over = document.querySelector(".over");
+				this.rule = {
+					phone:/^1[34578]\d{9}$/,
+					email:/^[a-zA-Z0-9_-]+@[a-zA-Z0-9-_]+(\.[a-zA-Z0-9-_]+)+$/,
+					qq:/^[1-9]\d{4,14}$/,
+					day:/^19[0]0]$/
+				}
+				this.order = 0;
+			}
+			Strike(){
+				this.btn.onclick = () =>{
+					this.order = 0;
+					this.text.forEach((tag)=>{
+						this.Judgment(tag.id,tag.value);
+					});
+				}
+			}
+			Judgment(tag,t){
+				t.replace(this.rule[tag],()=>{
+					this.order++;
+					this.Over();
+				});
+			}
+			Over(){
+				if(this.order === 4) this.over.style.display = 'block';
+			}
+		}
+		let a = new Sign;
+		a.Strike();
+	</script>
+</html>
