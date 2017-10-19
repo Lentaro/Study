@@ -40,7 +40,8 @@
 			}
 			#submit{
 				height: 50px;
-				font: 30px/50px "微软雅黑";margin: 30px auto;
+				font: 30px/50px "微软雅黑";
+				margin: 30px auto;
 			}
 			.over{
 				display: none;
@@ -56,46 +57,57 @@
 				<input type="text" name="" class="text" id="email" value="" placeholder="邮箱号"/>
 				<input type="text" name="" class="text" id="qq" value="" placeholder="QQ号"/>
 				<input type="text" name="" class="text" id="day" value="" placeholder="出生日期 如19750523"/>
-				<input type="button" value="注册" id="submit" disabled="disabled"/>
+				<input type="button" value="注册" id="submit"/>
 			</form>
-		</div>
-		<div class="over">
-			<div>注册完成</div>
 		</div>
 	</body>
 	<script type="text/javascript">
 		class Sign {
 			constructor(){
-				this.text = document.querySelectorAll(".text");
-				this.btn = document.querySelector("#submit");
-				this.over = document.querySelector(".over");
+				this.text = document.getElementsByClassName("text");
+				this.text = Array.prototype.slice.call(this.text);
+				console.log(this.text)
+				console.log(Object.prototype.toString.call(this.text))
+				this.btn = document.getElementById("submit");
+				console.log(this.btn)
+				this.btn.setAttribute("disabled","disabled");
 				this.rule = {
 					phone:/^1[34578]\d{9}$/,
 					email:/^[a-zA-Z0-9_-]+@[a-zA-Z0-9-_]+(\.[a-zA-Z0-9-_]+)+$/,
 					qq:/^[1-9]\d{4,14}$/,
-					day:/^19[0]0]$/
+					day:/^19[0-9][0-9]$/
 				}
-				this.order = 0;
+				this.order = 4;
 			}
 			Strike(){
-				this.btn.onclick = () =>{
-					this.order = 0;
-					this.text.forEach((tag)=>{
-						this.Judgment(tag.id,tag.value);
-					});
+				function x(){
+					console.log(this);
 				}
-			}
-			Judgment(tag,t){
-				t.replace(this.rule[tag],()=>{
-					this.order++;
-					this.Over();
+				console.log(this);
+				x();
+				this.text.forEach((tag) => {
+					tag.onblur = () => {
+						this.Judgment(tag,tag.value);
+					}
 				});
 			}
+			Judgment(tag,tx){
+				if(this.rule[tag.id].test(tx)){
+					tag.style.borderColor = 'green';
+					this.order--;
+				}else{
+					tag.style.borderColor = 'red';
+				}
+				this.Over();
+			}
 			Over(){
-				if(this.order === 4) this.over.style.display = 'block';
+				if(this.order === 0) this.btn.removeAttribute("disabled");
 			}
 		}
 		let a = new Sign;
 		a.Strike();
+//		console.log(Object.prototype.toString.call(b));
+//		c = '';
+//		console.log(!c);
 	</script>
 </html>
