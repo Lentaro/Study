@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		
+	</body>
+	<script type="text/javascript">
+//		addEvent(obj,evName,);  绑定器
+//		addEvent(document,'嘻嘻',function(){
+//			alert('嘻嘻');
+//		));
+//		var addEvent = (obj,evName,fn) =>{
+//			obj.Judgment = obj.Judgment || {};
+//			obj.Judgment[evName] = obj.Judgment[evName] || [];
+//			obj.Judgment[evname].push(fn);
+//		}
+//		var tigger = () =>{
+//			
+//		}
+		
+		
+		
+		class give {
+			constructor(){
+				this.Judgment = this.Judgment || {};
+			}
+			on(evName,fn){
+				this.Judgment[evName] = this.Judgment[evName] || [];
+				this.Judgment[evName].push(fn);
+			}
+			chufa(evName){
+				if(!this.Judgment[evName]) return;
+				this.Judgment[evName].forEach((x)=>{
+					x();	
+				});
+			}
+		}
+		const a = new give;
+		a.on('上滚',()=>{
+			alert(1);
+		});
+		console.log(a);
+		document.onclick = () =>{
+			a.chufa('上滚');
+		}
+//		var a = new Gun;
+//		console.log(a);
+	</script>
+</html>

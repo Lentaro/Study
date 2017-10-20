@@ -53,21 +53,38 @@
 		constructor(){
 			this.div = document.querySelector("div");
 		}
-		down(){
-			this.div.addEventListener('mousedown',(ev)=>{
-				var x = ev.clientX-this.div.offsetLeft;
-				var y = ev.clientY-this.div.offsetTop;
-				this.move(x,y);
-			});
+		init(){
+			var down = () =>{
+				this.down();
+			}
+			this.div.addEventListener('mousedown',down);
 		}
-		move(x,y){
-			document.addEventListener('mousemove',(ev)=>{
-//				ev.target.style.left = ev.clientX - x+'px';
-//				ev.target.style.top = ev.clientY - y +'px';
+		down(){
+			var move = (ev) 	=>{
+				var x = ev.clientX-ev.target.offsetLeft;
+				var y = ev.clientY-ev.target.offsetTop;
+				this.up(move,down,tag);
+				this.move(x,y,ev.target);
+			}
+			document.addEventListener('mousemove',move);
+		}
+		move(x,y,tag){
+			var move = () =>{
+				//ev.target.style.left = ev.clientX - x+'px';
+				//ev.target.style.top = ev.clientY - y +'px';
 				 // 此处存在较大的性能差距
-				this.div.style.left = ev.clientX - x+'px';
-				this.div.style.top = ev.clientY - y +'px';
-			})
+				tag.style.left = ev.clientX - x+'px';
+				tag.style.top = ev.clientY - y +'px';
+				this.up();
+			}
+		}
+		up(move,down,tag){
+			var up = () =>{
+				tag.removeEventListener('mousedown',down);
+				document.removeEventListener('mousemove',move);
+				document.removeEventListener('mouseup',up); 
+			}
+			document.removeEventListener('mouseup',up);
 		}
 	}
 	var x = new moveDiv;
