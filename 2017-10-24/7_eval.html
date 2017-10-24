@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="txt"/>
+<script>
+
+    /*
+        eval();
+            把能够运行js运行
+            容易被注入病毒，不过都在用。
+    */
+    let str = "{'name':'易康'}";
+
+    // console.log(JSON.parse(str));
+
+    let str2 = "[1,2,3,4]";
+
+
+    //console.log(eval('('+str+')'));
+
+    // (function (){
+    //     alert(1);
+    // })
+
+
+    //Function
+
+    // var fn = new Function('a,b','return a+b');
+
+    // console.log(fn(1,2));
+
+    console.log(new Function('','return'+str)());
+
+    txt.onblur = function(){
+        console.log(eval(this.value));
+    }
+
+
+    var s = "{error: 0, desc:'注册成功'}";
+
+    console.log(eval('('+s+')'))
+
+
+</script>
+</body>
+</html>
