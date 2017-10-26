@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		jsonp({
+			data:{
+				cb:'fn',
+				wd:user.value
+			},
+			url:'',
+			success:function(){},
+			fail:function(){}
+		});
+		function jsonp(json){
+			let classic = {
+				data:{
+					cn:'',
+					wd:''
+				},
+				url:'',
+				success:function(){},
+				fail:function(){}
+			};
+			for (let key in json) {
+				classic[key] = json[key];
+			}
+			let arr =[];
+			for (let key in json.data) {
+				arr.push(key+'='+json.data[key]);
+			}
+		}
+	</script>
+</html>
