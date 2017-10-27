@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			ul{
+				width: 236px;
+				margin: 0 auto;
+				margin-left: 10px;
+				float: left; 
+			}
+		</style>
+	</head>
+	<body>
+		<ul>
+			
+		</ul>
+		<ul>
+			
+		</ul>
+		<ul>
+			
+		</ul>
+		<ul>
+			
+		</ul>
+	</body>
+	<script type="text/javascript">
+		let num = 0;
+		let onOff = true;
+		const iW = document.documentElement.clientWidth;
+		console.log(iW)
+		const iLW = 236;
+		const space = 10; //空隙
+		const act = iLW + space;//实际宽度
+		let len = Math.floor(iW / act);
+		const ul = document.getElementsByTagName("ul");
+		let arrL = [];
+		let arrT = [];
+		ul.style.width = act * len - space + 'px';
+		len.forEach((e,i)=>{
+			arrT.push(0);
+			arrL.push(i*act);
+		});
+		function minIndex(){
+			let min = Math.min.apply('',arrT);
+			return arrT[arrT.findIndex(e=>e==min)];
+		}//找最小的那个ul的索引
+		jsonp({
+	        url:'http://www.wookmark.com/api/json/popular',
+	        data:{
+	          page:num
+	        },
+	        success:function(data){
+	        	data.forEach((e,i)=>{
+	        		let li = document.createElement("li");
+	        		let img = new Image();
+	        		img.sec = e.perview;
+	        		img.onload = function(){
+	        			let min = minIndex();
+	        			let h = (iLW/e.width)*e.height;
+	        			li.style.cssText = `height:${h};left:${arrL[min]}px;top:${arrT[min]};`;
+	        		}
+	        	})
+	        }
+	   });
+	</script>
+	<script src="jsonp_1.0.js" type="text/javascript" charset="utf-8"></script>
+</html>
