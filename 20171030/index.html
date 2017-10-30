@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" name="user" id="user" value="" />
+		<button id='btn'></button>
+	</body>
+	<script type="text/javascript">
+		let btn = document.getElementById('btn');
+		btn.onclick = () =>{
+			ajax({
+				url:'http://localhost:80',
+			})
+		}
+	</script>
+</html>
