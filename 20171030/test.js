@@ -4,9 +4,10 @@ const server = http.createServer(function(req,res){
 	let urlName = req.url;
 	let na = '';
 	console.log(urlName);
+	urlName = urlName.split('/')[1];
 	if(urlName !== 'favicon.ico'){
 		fs.readFile(na + urlName,function(err,data){
-//			console.log(urlName);
+			console.log(urlName);
 			if(err){
 				res.write('404');
 			}else{
